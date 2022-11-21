@@ -2,6 +2,7 @@ package se.vegas.tasknz.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import se.vegas.tasknz.dto.transactionDTO;
 import se.vegas.tasknz.dto.TransactionHistoryDto;
@@ -25,13 +26,13 @@ public class TransactionController {
     private final TransactionService transactionService;
     private final WalletService walletService;
 
-    @PostMapping("/credit")
+    @PostMapping(path = "/credit", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addCreditToPlayerBalance(@RequestBody transactionDTO transactionDTO)
             throws WalletNotFoundException, TransactionIdRedundantException {
         transactionService.credit(transactionDTO);
     }
 
-    @PostMapping("/debit")
+    @PostMapping(path = "/debit", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void withdrawalFromPlayerBalance(@RequestBody transactionDTO transactionDTO)
             throws WalletNotFoundException, NotEnoughCreditException, TransactionIdRedundantException {
         transactionService.debit(transactionDTO);

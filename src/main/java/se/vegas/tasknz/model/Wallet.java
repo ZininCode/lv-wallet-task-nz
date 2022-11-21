@@ -16,15 +16,16 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name ="wallet")
 public class Wallet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column
+    @Column (name = "player_id")
     private Long playerId;
     @Column
     private BigDecimal balance;
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", targetEntity = WalletTransaction.class)
     private List<WalletTransaction> walletTransactions;
 }

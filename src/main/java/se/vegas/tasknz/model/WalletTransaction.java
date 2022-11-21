@@ -1,6 +1,7 @@
 package se.vegas.tasknz.model;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,19 +18,21 @@ import java.time.Instant;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name ="transaction")
 public class WalletTransaction {
+
     @Id
     @Column
     private String id;
-    @Enumerated
-    @Column
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private TransactionType transactionType;
     @Column
     private BigDecimal amount;
-    @ManyToOne
-    @JoinColumn(name = "wallet_id", nullable = false)
+    @ManyToOne(targetEntity = Wallet.class)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false)
     private Wallet wallet;
-    @Column
+    @Column(name = "time")
     private Instant transactionTime;
 }
 
