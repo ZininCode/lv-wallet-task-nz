@@ -43,7 +43,7 @@ public class TransactionService {
         BigDecimal newBalance = wallet.getBalance().subtract(transactionDTO.getAmount());
         if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
             log.error("Not enough money on balance");
-            throw new NotEnoughCreditException(transactionDTO.getPlayerId(), "Not enough money on balance");
+            throw new NotEnoughCreditException(wallet.getId(), "Not enough money on balance");
         }
         makeTransaction(transactionDTO, wallet, newBalance, TransactionType.DEBIT);
     }
@@ -52,11 +52,11 @@ public class TransactionService {
         Optional<WalletTransaction> transaction = transactionRepository.findById(transactionDTO.getTransactionId());
         if (transaction.isPresent()) {
             log.error(String.format("Transaction with id %s already exists", transactionDTO.getTransactionId()));
-            throw new TransactionIdRedundantException(transactionDTO.getPlayerId(), "Transaction already exists");
+            throw new TransactionIdRedundantException(null, "Transaction already exists");
         }
     }
 
-    private final void makeTransaction(transactionDTO transactionDTO, Wallet wallet, BigDecimal newBalance, TransactionType transactionType) {
+    private void makeTransaction(transactionDTO transactionDTO, Wallet wallet, BigDecimal newBalance, TransactionType transactionType) {
         WalletTransaction transaction = new MappingService().mapPaymentDtoToEntity(transactionDTO);
         wallet.setBalance(newBalance);
         transaction.setWallet(wallet);

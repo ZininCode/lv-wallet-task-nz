@@ -19,9 +19,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class MappingService {
     public WalletTransaction mapPaymentDtoToEntity(transactionDTO transactionDTO) {
-        ModelMapper modelMapper = new ModelMapper();
-        WalletTransaction transaction = modelMapper.map(transactionDTO, WalletTransaction.class);
-        return transaction;
+        return WalletTransaction.builder()
+                .id(transactionDTO.getTransactionId())
+                .amount(transactionDTO.getAmount())
+                .build();
     }
 
     public BalanceDto mapWalletToBalanceDto(Wallet wallet) {

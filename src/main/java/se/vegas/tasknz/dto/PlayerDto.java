@@ -1,8 +1,7 @@
 package se.vegas.tasknz.dto;
 
-import lombok.*;
-
-import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Date: 10.11.2022
@@ -11,9 +10,6 @@ import java.math.BigDecimal;
  */
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
-public class BalanceDto {
+public class PlayerDto {
     private String playerId;
-    private BigDecimal balance;
 }

@@ -16,6 +16,6 @@ import java.math.BigDecimal;
 @Builder
 public class transactionDTO {
     private String transactionId;
-    private Long playerId;
+    private String playerId;
     private BigDecimal amount;
 }

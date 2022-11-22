@@ -23,7 +23,7 @@ public class Wallet {
     @Column(name = "id", nullable = false)
     private Long id;
     @Column (name = "player_id")
-    private Long playerId;
+    private String playerId;
     @Column
     private BigDecimal balance;
     @OneToMany(mappedBy = "wallet", targetEntity = WalletTransaction.class)

@@ -46,7 +46,7 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(response, NOT_FOUND);
     }
 
-    public ResponseEntity<WalletExceptionResponse> transactionIdAlreadyExistException(TransactionIdRedundantException ex, WebRequest request) {
+    public ResponseEntity<WalletExceptionResponse> TransactionIdRedundantException(TransactionIdRedundantException ex, WebRequest request) {
         WalletExceptionResponse response = WalletExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -57,4 +57,15 @@ public class ControllerExceptionHandler {
                 .build();
         return new ResponseEntity<>(response, NOT_FOUND);
     }
+    public ResponseEntity<WalletExceptionResponse> playerIdRedundantException(PlayerIdRedundantException ex, WebRequest request) {
+        WalletExceptionResponse response = WalletExceptionResponse
+                .builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .timestamp(new Date())
+                .path(request.getDescription(false))
+                .descriptionMessage(ex.getDescriptionMessage())
+                .build();
+        return new ResponseEntity<>(response, NOT_FOUND);
+    }
+
 }

@@ -1,9 +1,9 @@
 package se.vegas.tasknz.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import se.vegas.tasknz.dto.PlayerDto;
 import se.vegas.tasknz.dto.transactionDTO;
 import se.vegas.tasknz.dto.TransactionHistoryDto;
 import se.vegas.tasknz.exception.NotEnoughCreditException;
@@ -38,9 +38,9 @@ public class TransactionController {
         transactionService.debit(transactionDTO);
     }
 
-    @GetMapping("/history")
-    public List<TransactionHistoryDto> getPlayerTransactionHistory(@RequestParam long playerId)
+    @PostMapping ("/history")
+    public List<TransactionHistoryDto> getPlayerTransactionHistory(@RequestBody PlayerDto player)
             throws WalletNotFoundException {
-        return walletService.getAllTransactionsByPlayerId(playerId);
+        return walletService.getAllTransactionsByPlayerId(player.getPlayerId());
     }
 }
