@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import se.vegas.tasknz.dto.PlayerExceptionResponse;
 import se.vegas.tasknz.dto.WalletExceptionResponse;
 
 
@@ -22,7 +23,33 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(WalletNotFoundException.class)
-    public ResponseEntity<WalletExceptionResponse> gameNotFoundException(WalletNotFoundException ex, WebRequest request) {
+    public ResponseEntity<PlayerExceptionResponse> walletNotFoundException(WalletNotFoundException ex, WebRequest request) {
+        PlayerExceptionResponse response = PlayerExceptionResponse
+                .builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .playerId(ex.getPlayerId())
+                .timestamp(new Date())
+                .path(request.getDescription(false))
+                .descriptionMessage(ex.getDescriptionMessage())
+                .build();
+        return new ResponseEntity<>(response, NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotEnoughCreditException.class)
+    public ResponseEntity<WalletExceptionResponse> notEnoughCreditException(NotEnoughCreditException ex, WebRequest request) {
+        WalletExceptionResponse response = WalletExceptionResponse
+                .builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .walletId(ex.getWalletId())
+                .timestamp(new Date())
+                .path(request.getDescription(false))
+                .descriptionMessage(ex.getDescriptionMessage())
+                .build();
+        return new ResponseEntity<>(response, NOT_FOUND);
+    }
+
+    @ExceptionHandler(TransactionIdRedundantException.class)
+    public ResponseEntity<WalletExceptionResponse> transactionIdRedundantException(TransactionIdRedundantException ex, WebRequest request) {
         WalletExceptionResponse response = WalletExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -34,38 +61,16 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(response, NOT_FOUND);
     }
 
-    public ResponseEntity<WalletExceptionResponse> notEnoughMoneyException(NotEnoughCreditException ex, WebRequest request) {
-        WalletExceptionResponse response = WalletExceptionResponse
+    @ExceptionHandler(PlayerIdRedundantException.class)
+    public ResponseEntity<PlayerExceptionResponse> playerIdRedundantException(PlayerIdRedundantException ex, WebRequest request) {
+        PlayerExceptionResponse response = PlayerExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .timestamp(new Date())
-                .walletId(ex.getWalletId())
-                .path(request.getDescription(false))
-                .descriptionMessage(ex.getDescriptionMessage())
-                .build();
-        return new ResponseEntity<>(response, NOT_FOUND);
-    }
-
-    public ResponseEntity<WalletExceptionResponse> TransactionIdRedundantException(TransactionIdRedundantException ex, WebRequest request) {
-        WalletExceptionResponse response = WalletExceptionResponse
-                .builder()
-                .statusCode(HttpStatus.NOT_FOUND.value())
-                .timestamp(new Date())
-                .walletId(ex.getWalletId())
-                .path(request.getDescription(false))
-                .descriptionMessage(ex.getDescriptionMessage())
-                .build();
-        return new ResponseEntity<>(response, NOT_FOUND);
-    }
-    public ResponseEntity<WalletExceptionResponse> playerIdRedundantException(PlayerIdRedundantException ex, WebRequest request) {
-        WalletExceptionResponse response = WalletExceptionResponse
-                .builder()
-                .statusCode(HttpStatus.NOT_FOUND.value())
+                .playerId(ex.getPlayerId())
                 .timestamp(new Date())
                 .path(request.getDescription(false))
                 .descriptionMessage(ex.getDescriptionMessage())
                 .build();
         return new ResponseEntity<>(response, NOT_FOUND);
     }
-
 }

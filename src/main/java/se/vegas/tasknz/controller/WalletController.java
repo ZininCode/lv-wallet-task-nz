@@ -18,21 +18,16 @@ import se.vegas.tasknz.service.WalletService;
 @RestController
 @RequestMapping("/api/wallet")
 @AllArgsConstructor
-public class BalanceController {
+public class WalletController {
     private final WalletService walletService;
 
-
-    @PutMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping (path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createWallet(@RequestBody PlayerDto playerDto) throws PlayerIdRedundantException {
         walletService.createWallet(playerDto.getPlayerId());
     }
-
 
     @GetMapping(path = "/balance")
     public BalanceDto getPlayerCurrentBalance(@RequestParam String playerId) throws WalletNotFoundException {
         return walletService.getPlayerBalance(playerId);
     }
-
-
-
 }

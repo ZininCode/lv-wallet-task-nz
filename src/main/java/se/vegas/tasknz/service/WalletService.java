@@ -32,7 +32,7 @@ public class WalletService {
     public Wallet getWalletByPlayerId(String playerId) throws WalletNotFoundException {
         return walletRepository.findByPlayerId(playerId).orElseThrow(() -> {
             log.error(String.format("Player with id %s not found", playerId));
-            return new WalletNotFoundException(null, "Player not found");
+            return new WalletNotFoundException(playerId, "Player not found");
         });
     }
 
@@ -61,7 +61,7 @@ public class WalletService {
         Optional<Wallet> wallet = walletRepository.findByPlayerId(playerId);
         if (wallet.isPresent()) {
             log.error(String.format("Wallet already exist for player with id %s", playerId));
-            throw new PlayerIdRedundantException(wallet.get().getId(), "Wallet already already exists for this player");
+            throw new PlayerIdRedundantException(playerId, "Wallet already already exists for this player");
         }
     }
 }
