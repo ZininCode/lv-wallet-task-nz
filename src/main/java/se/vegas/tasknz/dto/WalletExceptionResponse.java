@@ -18,7 +18,6 @@ import java.util.UUID;
 public class WalletExceptionResponse {
     private int statusCode;
     private Date timestamp;
-    private Long walletId;
     private String path;
     private String descriptionMessage;
 }

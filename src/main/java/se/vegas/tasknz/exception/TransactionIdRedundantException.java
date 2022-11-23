@@ -9,8 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public class TransactionIdRedundantException extends WalletException {
-    public TransactionIdRedundantException(Long walletId, String descriptionMessage) {
-        super(walletId, descriptionMessage);
+    public TransactionIdRedundantException(String descriptionMessage) {
+        super(descriptionMessage);
     }
 }
 

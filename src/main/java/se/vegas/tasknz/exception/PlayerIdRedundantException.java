@@ -10,10 +10,9 @@ import lombok.Setter;
  * @author Nikolay Zinin
  */
 @Getter
-public class PlayerIdRedundantException extends PlayerException {
-
-    public PlayerIdRedundantException(String playerId, String descriptionMessage) {
-       super(playerId, descriptionMessage);
+public class PlayerIdRedundantException extends WalletException {
+    public PlayerIdRedundantException(String descriptionMessage) {
+       super(descriptionMessage);
     }
 }
 

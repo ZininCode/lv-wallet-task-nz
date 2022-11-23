@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import se.vegas.tasknz.dto.PlayerExceptionResponse;
+import se.vegas.tasknz.dto.WalletExceptionResponse;
 import se.vegas.tasknz.dto.WalletExceptionResponse;
 
 
@@ -23,11 +23,10 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(WalletNotFoundException.class)
-    public ResponseEntity<PlayerExceptionResponse> walletNotFoundException(WalletNotFoundException ex, WebRequest request) {
-        PlayerExceptionResponse response = PlayerExceptionResponse
+    public ResponseEntity<WalletExceptionResponse> walletNotFoundException(WalletNotFoundException ex, WebRequest request) {
+        WalletExceptionResponse response = WalletExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .playerId(ex.getPlayerId())
                 .timestamp(new Date())
                 .path(request.getDescription(false))
                 .descriptionMessage(ex.getDescriptionMessage())
@@ -40,7 +39,6 @@ public class ControllerExceptionHandler {
         WalletExceptionResponse response = WalletExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .walletId(ex.getWalletId())
                 .timestamp(new Date())
                 .path(request.getDescription(false))
                 .descriptionMessage(ex.getDescriptionMessage())
@@ -54,7 +52,6 @@ public class ControllerExceptionHandler {
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .timestamp(new Date())
-                .walletId(ex.getWalletId())
                 .path(request.getDescription(false))
                 .descriptionMessage(ex.getDescriptionMessage())
                 .build();
@@ -62,11 +59,10 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(PlayerIdRedundantException.class)
-    public ResponseEntity<PlayerExceptionResponse> playerIdRedundantException(PlayerIdRedundantException ex, WebRequest request) {
-        PlayerExceptionResponse response = PlayerExceptionResponse
+    public ResponseEntity<WalletExceptionResponse> playerIdRedundantException(PlayerIdRedundantException ex, WebRequest request) {
+        WalletExceptionResponse response = WalletExceptionResponse
                 .builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .playerId(ex.getPlayerId())
                 .timestamp(new Date())
                 .path(request.getDescription(false))
                 .descriptionMessage(ex.getDescriptionMessage())

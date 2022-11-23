@@ -9,8 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public class NotEnoughCreditException extends WalletException {
-    public NotEnoughCreditException(Long walletId, String descriptionMessage) {
-        super(walletId, descriptionMessage);
+    public NotEnoughCreditException(String descriptionMessage) {
+        super(descriptionMessage);
     }
 }
 

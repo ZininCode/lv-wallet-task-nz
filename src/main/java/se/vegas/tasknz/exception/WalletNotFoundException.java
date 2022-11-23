@@ -10,9 +10,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class WalletNotFoundException extends PlayerException{
-    public WalletNotFoundException(String playerId, String descriptionMessage) {
-     super(playerId, descriptionMessage);
+public class WalletNotFoundException extends WalletException{
+    public WalletNotFoundException(String descriptionMessage) {
+     super(descriptionMessage);
     }
 }
 

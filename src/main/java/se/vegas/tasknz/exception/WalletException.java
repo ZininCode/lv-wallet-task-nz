@@ -13,6 +13,5 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 public class WalletException extends Exception {
-    private final Long walletId;
     private final String descriptionMessage;
 }
